@@ -6,7 +6,7 @@ public class ListClientExample {
     public ListClientExample() {
         list = new ArrayList();
     }
-    private List getList() {
+    List getList() {
         return list;
     }
 
