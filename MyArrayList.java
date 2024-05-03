@@ -1,7 +1,5 @@
 import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class MyArrayList<E> implements List<E> {
     int size;
@@ -70,6 +68,61 @@ public class MyArrayList<E> implements List<E> {
     }
 
     @Override
+    public boolean remove(Object obj) {
+            int index = indexOf(obj);
+            if (index == -1) {
+                return false;
+            }
+            remove(index);
+            return true;
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends E> c) {
+        return false;
+    }
+
+    @Override
+    public boolean addAll(int index, Collection<? extends E> c) {
+        return false;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> collection) {
+        boolean flag = false;
+        for (Object obj: collection) {
+            flag |= remove(obj);
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public E remove(int index) {
+
+        E deleted = get(index);
+        for (int i= index; i<size-1; i++) {
+            array[i] = array[i+1];
+        }
+        size--;
+        return deleted;
+    }
+
+    @Override
     public E get(int index) {
             if (index < 0 || index >= size) {
                 throw new IndexOutOfBoundsException();
@@ -83,4 +136,51 @@ public class MyArrayList<E> implements List<E> {
             array[index] = element;
             return old;
     }
+
+    @Override
+    public int indexOf(Object target) {
+            for  (int i=0; i<size; i++) {
+                if(equals(target, array[i]))
+                    return i;
+            }
+            return -1;
+    }
+
+    @Override
+    public int lastIndexOf(Object o) {
+        return 0;
+    }
+
+    @Override
+    public ListIterator<E> listIterator() {
+        return null;
+    }
+
+    @Override
+    public ListIterator<E> listIterator(int index) {
+        return null;
+    }
+
+    @Override
+    public List<E> subList(int fromIndex, int toIndex) {
+        return List.of();
+    }
+
+    /** Checks whether an element of the array is the target.
+     *
+     * Handles the special case that the target is null.
+     *
+     *
+     */
+    private boolean equals(Object target, Object element) {
+            if (target == null) {
+                    return element == null;
+            } else {
+                    return target.equals(element);
+            }
+    }
+
+
+
+
 }
